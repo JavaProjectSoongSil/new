@@ -1,19 +1,21 @@
 package Stage;
-import java.util.Scanner;
+import java.util.*;
+
 import Fighter.Fighter;
 import Card.Card;
-import java.util.Map;
 
 public class Stage implements StageInter{
     Map<String,Integer> userChange;
     Map<String,Integer> enemyChange;
     Fighter enemy;
-    int[] reward;
+    Card reward;
     int stagenum=0;
     @Override
     public void setEnemyAndReward( int difficulty,Fighter user) {
-        int card=user.getDeckSet().size();
-
+        List<Card> cards=new ArrayList<>(user.getDeckSet());
+        Random rand=new Random();
+        int randomNum=rand.nextInt(cards.size());
+        reward=cards.get(randomNum);//보상용 카드 선택
     }
 
     @Override

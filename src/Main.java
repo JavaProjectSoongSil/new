@@ -29,10 +29,10 @@ public class Main {
             System.out.print("캐릭터를 골라주세요");
             String fighter = scanner.next();//
             a.chooseFighter(fighter);
-            System.out.print("스테이지가 생성됩니다.");
-            a.makestage();
             String stop = "";
             while (!stop.equals("그만")) {
+                System.out.print("스테이지가 생성됩니다.");
+                a.makestage();
                 stop = a.inCombat();
                 if (stop.equals("그만"))
                     break;

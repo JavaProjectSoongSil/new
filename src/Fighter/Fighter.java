@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Set;
 import Card.Card;
-import Item.Item;
 public abstract class Fighter implements FighterInter {
     //체력 방어
     //아이템
@@ -14,8 +13,6 @@ public abstract class Fighter implements FighterInter {
     Map<String,Integer> resource;
     Set<Card> deckSet;//파이터가 가질 수 있는 카드의 종류
     List<Card> deckList;//파이터가 가진 카드들
-    Set<Item> itemSet;
-    List<Item> itemsList;
     int deckremain=0;
     int deckoffset=0;
     int hand;//한번 턴에 낼 수 있는 카드
@@ -68,7 +65,7 @@ public abstract class Fighter implements FighterInter {
     }
 
     @Override
-    public void getreward(int[] reward) {
-        //내 카드를 강화하거나 카드를 추가하거나 아이템을 얻음(3가지 모두 일수도 있고 일부일수도)
+    public void getreward(Card reward) {
+        //카드를 추가
     }
 }
