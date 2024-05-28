@@ -5,5 +5,5 @@ public interface StageInter {
     boolean battleResult(Fighter user);
     void showUserInform(Fighter user);
     void showEnemyInform();
-    void endStage(Fighter user,Fighter enemy);
+    void endStage(Fighter user);
 }

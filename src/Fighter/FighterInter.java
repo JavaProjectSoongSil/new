@@ -12,5 +12,5 @@ public interface FighterInter {
     void showFighterInform();//after chooseCard get result about that round
     void setFighterResource(Map<String,Integer> cards);
     void showInventory();
-    void getreward(int stagenum);
+    void getreward(int[] reward);
 }

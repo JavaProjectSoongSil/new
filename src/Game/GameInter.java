@@ -4,11 +4,11 @@ import Fighter.Fighter;
 import java.util.Set;
 
 public interface GameInter { //난이도 설정
-    public Fighter chooseFighter(int fighterIndex);
+    public Fighter chooseFighter(String fighterIndex);
     public void makestage();
-    void inCombat();
+    String inCombat();
     void endstage();
-    void endgame(Fighter user);//show rank
+    void endgame();//show rank
 }
 
 

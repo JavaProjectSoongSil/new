@@ -13,13 +13,16 @@ public class Stage implements StageInter{
     @Override
     public void setEnemyAndReward( int difficulty,Fighter user) {
         int card=user.getDeckSet().size();
+
     }
 
     @Override
     public boolean battleResult(Fighter user) {
+        Scanner scanner=new Scanner(System.in);
         user.showFighterInform();
         enemy.showFighterInform();
         System.out.println("카드를 고르세요");
+        scanner.next();
         Card[] userCard=user.chooseCards();
         Card[] enemyCard=enemy.chooseCards(true);
         //카드의 작업에 따라 userChage와 enemyChange를 업데이트
@@ -31,8 +34,8 @@ public class Stage implements StageInter{
     }
 
     @Override
-    public void endStage(Fighter user, Fighter enemy) {
-
+    public void endStage(Fighter user) {
+        user.getreward(reward);
     }
 
     @Override

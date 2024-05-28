@@ -3,26 +3,29 @@ package Game;
 import Fighter.Fighter;
 import Stage.Stage;
 
+import java.util.Map;
 import java.util.Set;
 
 public class Game implements GameInter{
-    int Rank;
+    int rank;
     Set<Fighter> userset;
     Set<Fighter> enemyset;
     Fighter user;
+    Map<String,Integer>diff;
     int difficulty;
     String name;
     Stage stage=new Stage();
-    public void Game(int difficulty,String name) {
+    public Game(String difficulty,String name) {
         //set user and enemy
-        this.difficulty = difficulty;
+        //set diff
+        this.difficulty=diff.get(difficulty);
         this.name = name;
-        Rank = 0;
+        rank = 0;
         //difficulty로 user가 만들어진 캐릭터와 enemy의 초기값이 다름
     }
 
     @Override
-    public Fighter chooseFighter(int fighterIndex) {
+    public Fighter chooseFighter(String fighter) {
         return null;
     }
 
@@ -32,19 +35,26 @@ public class Game implements GameInter{
     }
 
     @Override
-    public void inCombat() {
+    public String inCombat() {
         while(stage.battleResult(user));
-        if(user.getResource().get("HP")<=0)
-            endgame(user);
+        if(user.getResource().get("HP")<=0) {
+            System.out.println("당신은 죽었습니다.");
+            return "그만";
+        }
+        else {
+            endstage();
+            return "다시";
+        }
     }
 
     @Override
     public void endstage() {
-
+        stage.endStage(user);
+        rank+=difficulty*1;
     }
 
     @Override
-    public void endgame(Fighter user) {
-
+    public void endgame() {
+        System.out.print(name+"\nYour rank is" +rank);
     }
 }

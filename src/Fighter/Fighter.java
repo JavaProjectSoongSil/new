@@ -16,10 +16,23 @@ public abstract class Fighter implements FighterInter {
     List<Card> deckList;//파이터가 가진 카드들
     Set<Item> itemSet;
     List<Item> itemsList;
+    int deckremain=0;
+    int deckoffset=0;
     int hand;//한번 턴에 낼 수 있는 카드
     @Override
     public Card[] chooseCards() {
         Card[] cards=new Card[hand];
+        deckremain=deckList.size();
+        //덱에서 카드 뽑기
+        for(int i=deckoffset;deckoffset<i+hand;deckoffset++){
+            cards[deckoffset-i]=deckList.get(deckoffset%deckremain);
+        }
+        deckoffset=deckoffset%deckremain;
+        deckremain-=hand;
+        if(deckremain<0){
+            deckremain=deckList.size()-deckremain;
+        }
+        //choose card
         System.out.println("Choose Cards");
         return cards;
     }
@@ -55,7 +68,7 @@ public abstract class Fighter implements FighterInter {
     }
 
     @Override
-    public void getreward(int stagenum) {
+    public void getreward(int[] reward) {
         //내 카드를 강화하거나 카드를 추가하거나 아이템을 얻음(3가지 모두 일수도 있고 일부일수도)
     }
 }
