@@ -11,7 +11,7 @@ public class Stage implements StageInter{
     Card reward;
     int stagenum=0;
     @Override
-    public void setEnemyAndReward( int difficulty,Fighter user) {
+    public void setEnemyAndReward(Fighter user) {
         List<Card> cards=new ArrayList<>(user.getDeckSet());
         Random rand=new Random();
         int randomNum=rand.nextInt(cards.size());
@@ -21,11 +21,10 @@ public class Stage implements StageInter{
     @Override
     public boolean battleResult(Fighter user) {
         Scanner scanner=new Scanner(System.in);
-        user.showFighterInform();
-        enemy.showFighterInform();
+        //getResource로 캐릭터의 요소 보여주기
         System.out.println("카드를 고르세요");
         scanner.next();
-        Card[] userCard=user.chooseCards();
+        Card[] userCard=user.chooseCards(false);
         Card[] enemyCard=enemy.chooseCards(true);
         //카드의 작업에 따라 userChage와 enemyChange를 업데이트
         user.setFighterResource(userChange);
@@ -42,12 +41,12 @@ public class Stage implements StageInter{
 
     @Override
     public void showEnemyInform() {
-        enemy.showFighterInform();
+
     }
 
     @Override
     public void showUserInform(Fighter user) {
-        user.showFighterInform();
+
     }
 
 }

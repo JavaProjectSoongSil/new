@@ -16,27 +16,29 @@ public abstract class Fighter implements FighterInter {
     int deckremain=0;
     int deckoffset=0;
     int hand;//한번 턴에 낼 수 있는 카드
-    @Override
-    public Card[] chooseCards() {
-        Card[] cards=new Card[hand];
-        deckremain=deckList.size();
-        //덱에서 카드 뽑기
-        for(int i=deckoffset;deckoffset<i+hand;deckoffset++){
-            cards[deckoffset-i]=deckList.get(deckoffset%deckremain);
-        }
-        deckoffset=deckoffset%deckremain;
-        deckremain-=hand;
-        if(deckremain<0){
-            deckremain=deckList.size()-deckremain;
-        }
-        //choose card
-        System.out.println("Choose Cards");
-        return cards;
-    }
+
     public Card[] chooseCards(Boolean isEnemy) {
-        Card[] cards=new Card[hand];
-        System.out.println("Choose Cards");//choose card random for decide enemy action
-        return cards;
+        if(isEnemy) {
+            Card[] cards = new Card[hand];
+            System.out.println("Choose Cards");//choose card random for decide enemy action
+            return cards;
+        }
+        else{
+            Card[] cards=new Card[hand];
+            deckremain=deckList.size();
+            //덱에서 카드 뽑기
+            for(int i=deckoffset;deckoffset<i+hand;deckoffset++){
+                cards[deckoffset-i]=deckList.get(deckoffset%deckremain);
+            }
+            deckoffset=deckoffset%deckremain;
+            deckremain-=hand;
+            if(deckremain<0){
+                deckremain=deckList.size()-deckremain;
+            }
+            //choose card
+            System.out.println("Choose Cards");
+            return cards;
+        }
     }
 
     public Set<Card> getDeckSet() {
@@ -45,14 +47,16 @@ public abstract class Fighter implements FighterInter {
     public Map<String,Integer> getResource(){
         return resource;
     }
+
     @Override
-    public void showFighterInform() {
-        /*Set<String> keySet = resource.keySet();
+    public void showdescript() {
+        //파이터의 소개정보 출력
+    }
+
+    /*Set<String> keySet = resource.keySet();
         for (String key : keySet) {
             System.out.println(key + ": " + resource.get(key));
         }*/
-        System.out.println("show information");//카드를 고르는 도중에 캐릭터의 정보 보여주기
-    }
 
     @Override
     public void setFighterResource(Map<String,Integer> change) {
@@ -61,7 +65,7 @@ public abstract class Fighter implements FighterInter {
 
     @Override
     public void showInventory() {
-        //캐릭터가 가진 카드와 장착된 아이템 보여주기
+        //캐릭터가 가진 카드를 보여주기
     }
 
     @Override

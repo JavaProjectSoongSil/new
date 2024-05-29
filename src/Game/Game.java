@@ -25,13 +25,18 @@ public class Game implements GameInter{
     }
 
     @Override
+    public void introduceFighter() {
+        //파이터의 소개 정보 출력
+    }
+
+    @Override
     public Fighter chooseFighter(String fighter) {
         return null;
     }
 
     @Override
     public void makestage() {
-        stage.setEnemyAndReward(difficulty,user);
+        stage.setEnemyAndReward(user);
     }
 
     @Override
@@ -43,7 +48,7 @@ public class Game implements GameInter{
         }
         else {
             endstage();
-            return "다시";
+            return "진행";
         }
     }
 

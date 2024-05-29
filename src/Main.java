@@ -25,7 +25,7 @@ public class Main {
                     break;
             }
             Game a = new Game(diff, name);
-            //
+            a.introduceFighter();
             System.out.print("캐릭터를 골라주세요");
             String fighter = scanner.next();//
             a.chooseFighter(fighter);
