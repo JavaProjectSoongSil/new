@@ -32,7 +32,7 @@ public class Main {
             String stop = "";
             while (!stop.equals("그만")) {
                 System.out.print("스테이지가 생성됩니다.");
-                a.makestage();
+                a.makeStage();
                 stop = a.inCombat();
                 if (stop.equals("그만"))
                     break;
@@ -40,7 +40,7 @@ public class Main {
                 stop = scanner.next();
 
             }
-            a.endgame();
+            a.endGame();
             System.out.print("다시 시작하시려면 다시를 입력해주세요");
             regame = scanner.next();
         }

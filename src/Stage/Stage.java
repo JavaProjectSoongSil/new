@@ -22,8 +22,9 @@ public class Stage implements StageInter{
     public boolean battleResult(Fighter user) {
         Scanner scanner=new Scanner(System.in);
         //getResource로 캐릭터의 요소 보여주기
+        System.out.print("상대방의 카드를 보실려면 enemy를 입력하고 자신의 카드를 보려면 user를 입력하세요");
         System.out.println("카드를 고르세요");
-        scanner.next();
+        //입력을 받고 상대방 카드를 보여주거나 내카드를 보여주거나 카드를 골랐다면 다음 흐름으로
         Card[] userCard=user.chooseCards(false);
         Card[] enemyCard=enemy.chooseCards(true);
         //카드의 작업에 따라 userChage와 enemyChange를 업데이트
@@ -36,17 +37,9 @@ public class Stage implements StageInter{
 
     @Override
     public void endStage(Fighter user) {
+        //추가될 카드 정보 출력
         user.getreward(reward);
     }
 
-    @Override
-    public void showEnemyInform() {
-
-    }
-
-    @Override
-    public void showUserInform(Fighter user) {
-
-    }
 
 }

@@ -24,6 +24,7 @@ public abstract class Fighter implements FighterInter {
             return cards;
         }
         else{
+
             Card[] cards=new Card[hand];
             deckremain=deckList.size();
             //덱에서 카드 뽑기
@@ -35,6 +36,7 @@ public abstract class Fighter implements FighterInter {
             if(deckremain<0){
                 deckremain=deckList.size()-deckremain;
             }
+            //카드 정보를 번호를 부여해 보여주기
             //choose card
             System.out.println("Choose Cards");
             return cards;
@@ -49,7 +51,7 @@ public abstract class Fighter implements FighterInter {
     }
 
     @Override
-    public void showdescript() {
+    public void showDescript() {
         //파이터의 소개정보 출력
     }
 

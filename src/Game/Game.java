@@ -30,12 +30,12 @@ public class Game implements GameInter{
     }
 
     @Override
-    public Fighter chooseFighter(String fighter) {
-        return null;
+    public void chooseFighter(String fighter) {
+
     }
 
     @Override
-    public void makestage() {
+    public void makeStage() {
         stage.setEnemyAndReward(user);
     }
 
@@ -47,19 +47,21 @@ public class Game implements GameInter{
             return "그만";
         }
         else {
-            endstage();
+            endStage();
             return "진행";
         }
     }
 
     @Override
-    public void endstage() {
+    public void endStage() {
+
         stage.endStage(user);
         rank+=difficulty*1;
+        //현재 점수 출력
     }
 
     @Override
-    public void endgame() {
+    public void endGame() {
         System.out.print(name+"\nYour rank is" +rank);
     }
 }
