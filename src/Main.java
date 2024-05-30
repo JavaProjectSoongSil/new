@@ -1,5 +1,5 @@
 import Game.Game;
-
+import Game.GameInter;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
@@ -24,7 +24,7 @@ public class Main {
                 if (diffset.contains(diff))
                     break;
             }
-            Game a = new Game(diff, name);
+            GameInter a = new Game(diff, name);
             a.introduceFighter();
             System.out.print("캐릭터를 골라주세요");
             String fighter = scanner.next();//
