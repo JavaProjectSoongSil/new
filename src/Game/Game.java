@@ -36,7 +36,7 @@ public class Game implements GameInter{
 
     @Override
     public void makeStage() {
-        stage.setEnemyAndReward(user);
+        stage.setEnemyAndReward(user,enemyset);
     }
 
     @Override

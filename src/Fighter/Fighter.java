@@ -10,7 +10,7 @@ public abstract class Fighter implements FighterInter {
     //아이템
     //카드 사용
     //카드를 고를 수 있는 개수
-    Map<String,Integer> resource;
+    Map<String,Integer> resource;//hand,"HP"
     Set<Card> deckSet;//파이터가 가질 수 있는 카드의 종류
     List<Card> deckList;//파이터가 가진 카드들
     int deckremain=0;

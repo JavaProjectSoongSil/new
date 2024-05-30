@@ -9,9 +9,8 @@ public class Stage implements StageInter{
     Map<String,Integer> enemyChange;
     Fighter enemy;
     Card reward;
-    int stagenum=0;
     @Override
-    public void setEnemyAndReward(Fighter user) {
+    public void setEnemyAndReward(Fighter user,Set<Fighter> enemyset) {
         List<Card> cards=new ArrayList<>(user.getDeckSet());
         Random rand=new Random();
         int randomNum=rand.nextInt(cards.size());
