@@ -5,12 +5,16 @@ import java.util.Map;
 import java.util.List;
 public abstract class Card implements CardInter {
     protected Map<String, List<Integer>> cardInfo;
+    protected String description;
 
-    public Card() {
-        cardInfo = new HashMap<>();
+    public Card(Map<String, List<Integer>> cardInfo, String description) {
+        this.cardInfo = cardInfo;
+        this.description = description;
     }
+
     @Override
-    public Map<String,List<Integer>> getCardInform() {
-        return null;
+    public Map<String, List<Integer>> getCardInform() {
+        return cardInfo;
     }
+
 }
