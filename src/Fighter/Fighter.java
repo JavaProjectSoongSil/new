@@ -18,6 +18,9 @@ public abstract class Fighter implements FighterInter {
     int hand;//한번 턴에 낼 수 있는 카드
 
     public Card[] chooseCards(Boolean isEnemy) {
+        // 이 메서드는 카드를 선택하는 로직을 담당합니다.
+        // isEnemy가 true인 경우, 적이 카드를 선택하는 로직을 수행합니다.
+        // isEnemy가 false인 경우, 사용자가 카드를 선택하는 로직을 수행합니다.
         if(isEnemy) {
             Card[] cards = new Card[hand];
             System.out.println("Choose Cards");//choose card random for decide enemy action
@@ -44,14 +47,17 @@ public abstract class Fighter implements FighterInter {
     }
 
     public Set<Card> getDeckSet() {
+        // 이 메서드는 파이터가 가질 수 있는 카드의 종류를 반환합니다.
         return deckSet;
     }
     public Map<String,Integer> getResource(){
+        // 이 메서드는 파이터의 자원을 반환합니다.
         return resource;
     }
 
     @Override
     public void showDescript() {
+        // 이 메서드는 파이터의 소개 정보를 출력합니다.
         //파이터의 소개정보 출력
     }
 
@@ -62,16 +68,20 @@ public abstract class Fighter implements FighterInter {
 
     @Override
     public void setFighterResource(Map<String,Integer> change) {
+        // 이 메서드는 카드의 효과에 따라 파이터의 자원을 변경합니다.
+        // 예를 들어, 카드의 효과로 체력이 1 감소한다면, "HP"의 값을 1 감소시킵니다.
         //카드로 인한 캐릭터의 정보가 바뀜(hp-1과 같은)
     }
 
     @Override
     public void showInventory() {
+        // 이 메서드는 파이터가 가진 카드를 출력합니다.
         //캐릭터가 가진 카드를 보여주기
     }
 
     @Override
     public void getreward(Card reward) {
-        //카드를 추가
+        // 이 메서드는 보상으로 카드를 받는 로직을 담당합니다.
+        // reward로 받은 카드를 deckList에 추가합니다.
     }
 }
