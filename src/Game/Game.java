@@ -6,72 +6,78 @@ import Stage.Stage;
 import java.util.Map;
 import java.util.Set;
 
-public class Game implements GameInter{
-    int rank; // 게임의 랭크를 나타내는 변수입니다. 게임이 진행됨에 따라 증가합니다.
-    Set<Fighter> userset; // 사용자가 선택할 수 있는 파이터들의 집합입니다.
-    Set<Fighter> enemyset; // 게임에서 만날 수 있는 적들의 집합입니다.
-    Fighter user; // 사용자가 선택한 파이터입니다.
-    Map<String,Integer> diff; // 난이도와 그에 따른 점수를 매핑하는 맵입니다. 예를 들어, "상"은 3, "중"은 2, "하"은 1과 같이 매핑될 수 있습니다.
-    int difficulty; // 게임의 난이도를 나타내는 변수입니다. 'diff' 맵에서 해당 난이도의 점수를 가져와 저장합니다.
-    String name; // 사용자의 이름을 저장하는 변수입니다.
-    Stage stage = new Stage(); // 게임의 스테이지입니다. 각 스테이지에서는 사용자와 적이 싸웁니다.
-    public Game(String difficulty,String name) {
-        //set user and enemy
-        //set diff
-        this.difficulty=diff.get(difficulty);
-        this.name = name;
-        rank = 0;
-        //difficulty로 user가 만들어진 캐릭터와 enemy의 초기값이 다름
+import java.util.*;
+
+public class Game implements GameInter {
+    private Fighter player;
+    private Fighter enemy;
+    private Stage stage;
+    private int score;
+
+    public Game() {
+        this.score = 0; // 초기 점수 설정
     }
 
     @Override
     public void introduceFighter() {
-        // 이 메서드는 파이터의 소개 정보를 출력합니다.
-        // 사용자가 선택할 수 있는 파이터의 정보를 보여주는 로직이 필요합니다.
+        System.out.println("파이터 소개: 각 파이터는 고유한 능력과 자원을 가지고 있습니다.");
     }
 
     @Override
     public void chooseFighter(String fighter) {
-// 이 메서드는 사용자가 선택한 파이터를 설정합니다.
-        // 파라미터로 전달된 'fighter'를 이용하여 'user' 변수를 설정하는 로직이 필요합니다.
+        if (fighter.equals("파이터1")) {
+            player = new Fighter1();
+        } else if (fighter.equals("파이터2")) {
+            player = new Fighter2();
+        } else {
+            System.out.println("올바른 파이터를 선택하세요.");
+        }
     }
 
     @Override
     public void makeStage() {
-        // 이 메서드는 스테이지를 생성합니다.
-        // 'stage' 객체의 'setEnemyAndReward' 메서드를 호출하여 적과 보상을 설정합니다.
-        stage.setEnemyAndReward(user,enemyset);
+        stage = new Stage();
+        stage.setEnemyAndReward(player);
+        enemy = stage.getEnemy(); // 적 파이터 설정
+        System.out.println("스테이지가 생성되었습니다.");
     }
 
     @Override
     public String inCombat() {
-        // 이 메서드는 전투를 진행하고 결과를 반환합니다.
-        // 'stage' 객체의 'battleResult' 메서드를 호출하여 전투를 진행하고,
-        // 사용자의 체력이 0 이하인 경우 "그만"을 반환하고, 그렇지 않은 경우 'endStage' 메서드를 호출하고 "진행"을 반환합니다.
-        while(stage.battleResult(user));
-        if(user.getResource().get("HP")<=0) {
-            System.out.println("당신은 죽었습니다.");
-            return "그만";
+        Scanner scanner = new Scanner(System.in);
+        while (player.getHP() > 0 && enemy.getHP() > 0) {
+            System.out.println("카드를 뽑아주세요: ");
+            player.drawCard();
+            enemy.drawCard();
+            player.attack(enemy);
+            enemy.attack(player);
+            System.out.println("현재 HP: 플레이어 - " + player.getHP() + ", 적 - " + enemy.getHP());
+            if (player.getHP() <= 0) {
+                System.out.println("플레이어가 패배했습니다.");
+                return "그만";
+            } else if (enemy.getHP() <= 0) {
+                System.out.println("플레이어가 승리했습니다.");
+                stage.endStage(player);
+                return "계속";
+            }
+            System.out.println("그만하시겠습니까? 계속하시려면 '계속', 그만하시려면 '그만'을 입력해주세요.");
+            String command = scanner.next();
+            if (command.equals("그만")) {
+                return "그만";
+            }
         }
-        else {
-            endStage();
-            return "진행";
-        }
+        return "계속";
     }
 
     @Override
     public void endStage() {
-        // 이 메서드는 스테이지를 종료하고 보상을 받습니다.
-        // 'stage' 객체의 'endStage' 메서드를 호출하여 보상을 받고, 랭크를 증가시킵니다.
-        stage.endStage(user);
-        rank+=difficulty*1;
-        //현재 점수 출력
+        int stageScore = stage.getRewards().getOrDefault("gold", 0); // 스테이지 보상 점수 가져오기
+        score += stageScore;
+        System.out.println("스테이지를 종료합니다. 보상을 받습니다: " + stageScore + "점. 현재 점수: " + score);
     }
 
     @Override
     public void endGame() {
-        // 이 메서드는 게임을 종료하고 최종 랭크를 출력합니다.
-        // 사용자의 이름과 최종 랭크를 출력합니다.
-        System.out.print(name+"\nYour rank is" +rank);
+        System.out.println("게임이 종료되었습니다. 최종 점수: " + score);
     }
 }
