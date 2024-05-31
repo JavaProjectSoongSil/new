@@ -17,4 +17,8 @@ public abstract class Card implements CardInter {
         return cardInfo;
     }
 
+    public void showCardDescription() {
+        System.out.println(description);
+    }
+
 }
