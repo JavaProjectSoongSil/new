@@ -4,15 +4,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 import Card.Card;
+import Card.impl.AttackCard;
+import Card.impl.DefenseCard;
+import Card.impl.HealCard;
 import Fighter.Fighter;
 
 
 public class Archer extends Fighter {
     public Archer() {
-        resource = new HashMap<>();
-        resource.put("HP", 100);
-        resource.put("hand", 2);
-        resource.put("Attack", 30); // 공격력
-        resource.put("Defense", 5); // 방어력
+        super("Archer", 100, 25, 7, 2);
+        // 카드 추가
+        cardSet.add(new AttackCard(18, 1));
+        cardSet.add(new DefenseCard(7, 0));
+        cardSet.add(new HealCard(12, 0));
     }
 }

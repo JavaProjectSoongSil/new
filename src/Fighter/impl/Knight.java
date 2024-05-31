@@ -1,19 +1,20 @@
 package Fighter.impl;
 
 import Card.Card;
+import Card.impl.AttackCard;
+import Card.impl.DefenseCard;
+import Card.impl.HealCard;
 import Fighter.Fighter;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class Knight extends Fighter {
-
     public Knight() {
-        resource = new HashMap<>();
-        resource.put("HP", 200);
-        resource.put("hand", 2);
-        resource.put("Attack", 15); // 공격력
-        resource.put("Defense", 20); // 방어력
+        super("Knight", 200, 15, 115, 2);
+        // 카드 추가
+        cardSet.add(new AttackCard());
+        cardSet.add(new DefenseCard());
+        cardSet.add(new HealCard());
     }
-
 }
