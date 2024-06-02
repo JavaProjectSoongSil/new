@@ -88,10 +88,32 @@ public class Game implements GameInter {
     public void endStage() {
         stage.endStage(player);
         round++; // 라운드 증가
+
+        // 난이도에 따른 기본 점수 설정
+        int baseScore;
+        switch (difficulty) {
+            case "하":
+                baseScore = 10;
+                break;
+            case "중":
+                baseScore = 20;
+                break;
+            case "상":
+                baseScore = 30;
+                break;
+            default:
+                baseScore = 0;
+        }
+
+        // 라운드 수에 따른 점수 계산
+        int roundScore = baseScore * round;
+
+        // 최종 점수에 더하기
+        score += roundScore;
     }
 
     @Override
     public void endGame() {
-        System.out.println("게임이 종료되었습니다. 최종 점수: " + score);
+        System.out.println("게임이 종료되었습니다.\n최종 점수: " + score);
     }
 }
