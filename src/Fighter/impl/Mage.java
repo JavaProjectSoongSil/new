@@ -12,7 +12,7 @@ public class Mage extends Fighter {
     public Mage(String difficulty, int round) {
         super("Mage",
                 (int) Math.round(80 * (1 + ((double) round / 10))),
-                (int) Math.round(15 * (1 + ((double) round / 10))),
+                (int) Math.round(5 * (1 + ((double) round / 10))),
                 (int) Math.round(5 * (1 + ((double) round / 10))),
                 4);
         if (difficulty.equals("상")) {
@@ -25,9 +25,9 @@ public class Mage extends Fighter {
             resource.put("defensePower", (int) Math.round(3 * (1 + ((double) round / 10)))); // 방어력을 낮춤
         }
         // 카드 추가
-        cardSet.add(new AttackCard(25,1));
+        cardSet.add(new AttackCard(20,1));
         cardSet.add(new DefenseCard(1,0));
-        cardSet.add(new HealCard(25,0));
+        cardSet.add(new HealCard(20,0));
 
         resource.put("specialPower", 20);
     }
