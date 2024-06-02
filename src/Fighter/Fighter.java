@@ -18,6 +18,8 @@ public abstract class Fighter implements FighterInter {
         resource.put("attackPower", attackPower);
         resource.put("defensePower", defensePower);
         resource.put("hand", hand);
+        resource.put("XP", 0);  // 경험치 초기화
+        resource.put("level", 1);  // 레벨 1에서 시작
     }
 
     @Override
@@ -107,6 +109,26 @@ public abstract class Fighter implements FighterInter {
     public void getreward(Card reward) {
         // 카드를 추가합니다.
         cardSet.add(reward);
+
+        // 보상으로 받은 경험치 추가
+        int xpReward = 100; // 경험치 보상
+        int currentXP = resource.get("XP");
+        int currentLevel = resource.get("level");
+        resource.put("XP", currentXP + xpReward);
+
+        // 레벨업 체크
+        int xpThreshold = 300;  // 레벨업에 필요한 경험치
+        if (resource.get("XP") >= xpThreshold) {
+            resource.put("level", currentLevel + 1);
+            resource.put("XP", resource.get("XP") - xpThreshold);  // 경험치 리셋 또는 초과분 이월
+
+            // 선택적으로 스탯 증가
+            resource.put("HP", resource.get("HP") + 100);  // 레벨업 시 HP 증가
+            resource.put("attackPower", resource.get("attackPower") + 10);  // 공격력 증가
+            resource.put("defensePower", resource.get("defensePower") + 5);  // 방어력 증가
+
+            System.out.println("레벨 업! 지금 현재 레벨 : " + resource.get("level"));
+        }
 
         // 카드 정보를 출력합니다.
         Map<String, List<Integer>> cardInfo = reward.getCardInform();
