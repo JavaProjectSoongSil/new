@@ -51,10 +51,10 @@ public class Stage implements StageInter {
         }
 
         // 사용자가 승리하면 true를 반환하고, 패배하면 false를 반환
-        if (enemy.getResource().get("HP") <= 0) {
-            return true; // 사용자 승리
-        } else {
+        if (user.getResource().get("HP") <= 0) {
             return false; // 사용자 패배
+        } else {
+            return true; // 사용자 승리
         }
     }
     private void applyCardEffect(Card card, Fighter caster, Fighter target) {
