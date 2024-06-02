@@ -25,7 +25,7 @@ public class Main {
                 if (diffset.contains(diff))
                     break;
             }
-            GameInter a = new Game();
+            GameInter a = new Game(diff);
             a.introduceFighter();
             System.out.print("캐릭터를 골라주세요");
             String fighter = scanner.next();//
