@@ -157,10 +157,10 @@ public abstract class Fighter implements FighterInter {
 
         if (currentSpecialPower > 100) { // specialPower가 100을 넘어가면
             int currentAttackPower = resource.get("attackPower");
-            currentAttackPower += 5; // 공격력이 5씩 늘어남
+            currentAttackPower += 3; // 공격력이 5씩 늘어남
             resource.put("attackPower", currentAttackPower);
             resource.put("specialPower", currentSpecialPower - 100); // specialPower를 100만큼 감소
-            System.out.println("--- 특수능력 발동! 공격력이 5 증가합니다.");
+            System.out.println("--- 특수능력 발동! 공격력이 3 증가합니다.");
         }
     }
 }
