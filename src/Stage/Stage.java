@@ -38,10 +38,12 @@ public class Stage implements StageInter {
             for (Card card : userCards) {
                 System.out.println("\n===사용자 카드를 발동===");
                 applyCardEffect(card, user, enemy);
+                user.gainSpecialPower();
             }
             for (Card card : enemyCards) {
                 System.out.println("\n===적이 카드를 발동===");
                 applyCardEffect(card, enemy, user);
+                enemy.gainSpecialPower();
             }
             int userHP = Math.max(user.getResource().get("HP"), 0);
             int enemyHP = Math.max(enemy.getResource().get("HP"), 0);

@@ -144,17 +144,22 @@ public abstract class Fighter implements FighterInter {
         }
     }
 
-    public void applySpecialPower(Fighter target) {
-        int specialPower = resource.get("specialPower");
-        if (specialPower == 1) {
-            // 특수 능력을 적용합니다.
-            int attack = (int) Math.round(40 * (1 + ((double) resource.get("level") / 10)));
-            if (attack > 0) {
-                int newValue = target.getResource().get("HP") - (attack);
-                target.getResource().put("HP", newValue);
-                target.setFighterResource(target.getResource());
-                System.out.println("--- 상대방에게" + attack + "의 고정피해를 주었습니다.");
-            }
+    public void gainSpecialPower() {
+        // specialPower 키가 없는 경우, 메서드를 종료
+        if (!resource.containsKey("specialPower")) {
+            return;
+        }
+
+        int currentSpecialPower = resource.get("specialPower");
+        currentSpecialPower += 20; // 한 턴마다 20의 specialPower를 얻음
+        resource.put("specialPower", currentSpecialPower);
+
+        if (currentSpecialPower > 100) { // specialPower가 100을 넘어가면
+            int currentAttackPower = resource.get("attackPower");
+            currentAttackPower += 5; // 공격력이 5씩 늘어남
+            resource.put("attackPower", currentAttackPower);
+            resource.put("specialPower", currentSpecialPower - 100); // specialPower를 100만큼 감소
+            System.out.println("--- 특수능력 발동! 공격력이 5 증가합니다.");
         }
     }
 }
