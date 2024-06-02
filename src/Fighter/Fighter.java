@@ -22,25 +22,34 @@ public abstract class Fighter implements FighterInter {
         List<Card> cardList = new ArrayList<>(cardSet);
         Collections.shuffle(cardList);
         int handLimit = resource.get("hand");
-
         if (isEnemy) {
-            for (int i = 0; i < handLimit && i < cardList.size(); i++) {
-                chosenCards.add(cardList.get(i));
-            }
+            Random random = new Random();
+            int randomIndex = random.nextInt(cardList.size());
+            chosenCards.add(cardList.get(randomIndex));
         } else {
             Scanner scanner = new Scanner(System.in);
-            System.out.println("==================================");
-            for (int i = 0; i < handLimit; i++) {
-                Card card = cardList.get(i);
-                System.out.print((i + 1) + ": ");
-                for (Map.Entry<String, List<Integer>> entry : card.getCardInform().entrySet()) {
-                    System.out.println("타입: " + entry.getKey() + ", 능력치: " + entry.getValue().get(0));
+            int choice = 0;
+            boolean validInput = false;
+            do {
+                System.out.println("==================================");
+                for (int i = 0; i < handLimit; i++) {
+                    Card card = cardList.get(i);
+                    System.out.print((i + 1) + ": ");
+                    for (Map.Entry<String, List<Integer>> entry : card.getCardInform().entrySet()) {
+                        System.out.println("타입: " + entry.getKey() + ", 능력치: " + entry.getValue().get(0));
+                    }
+                    System.out.println("설명: " + card.getCardDescription());
                 }
-                System.out.println("설명: " + card.getCardDescription());
-            }
-            System.out.println("==================================");
-            System.out.print("카드를 선택하세요 (1-" + cardList.size() + "): ");
-            int choice = scanner.nextInt();
+                System.out.println("==================================");
+
+                System.out.print("카드를 선택하세요 (1-" + handLimit + "): ");
+                choice = scanner.nextInt();
+                if (choice >= 1 && choice <= handLimit) {
+                    validInput = true;
+                } else {
+                    System.out.println("잘못된 입력입니다. 1-" + handLimit + " 사이의 숫자를 입력해주세요.\n");
+                }
+            } while (!validInput);
             chosenCards.add(cardList.get(choice - 1));
             cardList.remove(choice - 1); // 선택한 카드를 목록에서 제거
         }
@@ -79,9 +88,7 @@ public abstract class Fighter implements FighterInter {
 
     @Override
     public void setFighterResource(Map<String, Integer> change) {
-        for (Map.Entry<String, Integer> entry : change.entrySet()) {
-            resource.put(entry.getKey(), resource.getOrDefault(entry.getKey(), 0) + entry.getValue());
-        }
+        this.resource = change;
     }
 
     @Override
@@ -95,6 +102,5 @@ public abstract class Fighter implements FighterInter {
     @Override
     public void getreward(Card reward) {
         cardSet.add(reward);
-        System.out.println("보상으로 받은 카드: " + reward.getCardInform());
     }
 }
