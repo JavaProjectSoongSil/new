@@ -117,7 +117,7 @@ public abstract class Fighter implements FighterInter {
         resource.put("XP", currentXP + xpReward);
 
         // 레벨업 체크
-        int xpThreshold = 300;  // 레벨업에 필요한 경험치
+        int xpThreshold = currentLevel * 150;  // 레벨업에 필요한 경험치
         if (resource.get("XP") >= xpThreshold) {
             resource.put("level", currentLevel + 1);
             resource.put("XP", resource.get("XP") - xpThreshold);  // 경험치 리셋 또는 초과분 이월
@@ -125,9 +125,11 @@ public abstract class Fighter implements FighterInter {
             // 선택적으로 스탯 증가
             resource.put("HP", resource.get("HP") + 100);  // 레벨업 시 HP 증가
             resource.put("attackPower", resource.get("attackPower") + 10);  // 공격력 증가
-            resource.put("defensePower", resource.get("defensePower") + 5);  // 방어력 증가
+            resource.put("defensePower", resource.get("defensePower") + 3);  // 방어력 증가
 
+            System.out.println("=================================");
             System.out.println("레벨 업! 지금 현재 레벨 : " + resource.get("level"));
+            System.out.println("=================================");
         }
 
         // 카드 정보를 출력합니다.
