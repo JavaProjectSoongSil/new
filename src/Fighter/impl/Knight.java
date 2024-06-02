@@ -11,16 +11,20 @@ import java.util.Map;
 
 public class Knight extends Fighter {
 
-    public Knight(String difficulty) {
-        super("Knight", 200, 15, 15, 2);
+    public Knight(String difficulty, int round) {
+        super("Knight",
+                (int) Math.round(200 * (1 + ((double) round / 10))),
+                (int) Math.round(15 * (1 + ((double) round / 10))),
+                (int) Math.round(15 * (1 + ((double) round / 10))),
+                2);
         if (difficulty.equals("상")) {
-            resource.put("HP", 250); // HP를 높임
-            resource.put("attackPower", 20); // 공격력을 높임
-            resource.put("defensePower", 20); // 방어력을 높임
+            resource.put("HP", (int) Math.round(250 * (1 + ((double) round / 10)))); // HP를 높임
+            resource.put("attackPower", (int) Math.round(20 * (1 + ((double) round / 10)))); // 공격력을 높임
+            resource.put("defensePower", (int) Math.round(20 * (1 + ((double) round / 10)))); // 방어력을 높임
         } else if (difficulty.equals("하")) {
-            resource.put("HP", 150); // HP를 낮춤
-            resource.put("attackPower", 10); // 공격력을 낮춤
-            resource.put("defensePower", 10); // 방어력을 낮춤
+            resource.put("HP", (int) Math.round(150 * (1 + ((double) round / 10)))); // HP를 낮춤
+            resource.put("attackPower", (int) Math.round(10 * (1 + ((double) round / 10)))); // 공격력을 낮춤
+            resource.put("defensePower", (int) Math.round(10 * (1 + ((double) round / 10)))); // 방어력을 낮춤
         }
         // 카드 추가
         cardSet.add(new AttackCard());

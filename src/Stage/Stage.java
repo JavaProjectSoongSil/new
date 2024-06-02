@@ -13,14 +13,16 @@ import Fighter.impl.Mage;
 public class Stage implements StageInter {
     private Fighter enemy;
     private String difficulty;
+    private int round;
 
-    public Stage(String difficulty) {
+    public Stage(String difficulty, int round) {
         this.difficulty = difficulty;
+        this.round = round;
     }
 
     @Override
     public void setEnemyAndReward(Fighter user) {
-        List<Fighter> fighters = Arrays.asList(new Knight(difficulty), new Mage(difficulty), new Archer(difficulty));
+        List<Fighter> fighters = Arrays.asList(new Knight(difficulty, round), new Mage(difficulty, round), new Archer(difficulty, round));
         Random random = new Random();
         this.enemy = fighters.get(random.nextInt(fighters.size())); // 적 파이터를 랜덤으로 선택
         System.out.println("적이 설정되었습니다. \n ");

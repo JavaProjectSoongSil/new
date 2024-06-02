@@ -29,7 +29,7 @@ public class Game implements GameInter {
     @Override
     public void introduceFighter() {
         // 사용할 수 있는 모든 파이터의 정보를 출력
-        Fighter[] fighters = {new Knight("중"), new Mage("중"), new Archer("중")};
+        Fighter[] fighters = {new Knight("중", 0), new Mage("중", 0), new Archer("중", 0)};
         System.out.println("사용할 수 있는 파이터:");
         for (Fighter fighter : fighters) {
             fighter.showDescript();
@@ -43,15 +43,15 @@ public class Game implements GameInter {
         do {
             switch (fighterName.toLowerCase()) {
                 case "knight":
-                    player = new Knight("중");
+                    player = new Knight("중",0);
                     validInput = true;
                     break;
                 case "mage":
-                    player = new Mage("중");
+                    player = new Mage("중", 0);
                     validInput = true;
                     break;
                 case "archer":
-                    player = new Archer("중");
+                    player = new Archer("중", 0);
                     validInput = true;
                     break;
                 default:
@@ -63,7 +63,7 @@ public class Game implements GameInter {
 
     @Override
     public void makeStage() {
-        stage = new Stage(difficulty);
+        stage = new Stage(difficulty,round);
         stage.setEnemyAndReward(player);
         System.out.println("라운드 " + round + "이 시작되었습니다.\n");
     }
