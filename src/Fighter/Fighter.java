@@ -38,7 +38,8 @@ public abstract class Fighter implements FighterInter {
             boolean validInput = false;
             do {
                 System.out.println("==================================");
-                for (int i = 0; i < handLimit; i++) {
+                int limit = Math.min(handLimit, cardList.size());
+                for (int i = 0; i < limit; i++) {
                     Card card = cardList.get(i);
                     System.out.print((i + 1) + ": ");
                     for (Map.Entry<String, List<Integer>> entry : card.getCardInform().entrySet()) {

@@ -14,7 +14,7 @@ public class Mage extends Fighter {
                 (int) Math.round(80 * (1 + ((double) round / 10))),
                 (int) Math.round(15 * (1 + ((double) round / 10))),
                 (int) Math.round(5 * (1 + ((double) round / 10))),
-                5);
+                4);
         if (difficulty.equals("상")) {
             resource.put("HP", (int) Math.round(120 * (1 + ((double) round / 10)))); // HP를 높임
             resource.put("attackPower", (int) Math.round(25 * (1 + ((double) round / 10)))); // 공격력을 높임
@@ -26,10 +26,8 @@ public class Mage extends Fighter {
         }
         // 카드 추가
         cardSet.add(new AttackCard(25,1));
-        cardSet.add(new AttackCard(30,1));
-        cardSet.add(new DefenseCard(3,0));
+        cardSet.add(new DefenseCard(1,0));
         cardSet.add(new HealCard(25,0));
-        cardSet.add(new HealCard(30,0));
 
         resource.put("specialPower", 20);
     }
