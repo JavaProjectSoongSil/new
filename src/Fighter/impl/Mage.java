@@ -14,7 +14,7 @@ public class Mage extends Fighter {
                 (int) Math.round(80 * (1 + ((double) round / 10))),
                 (int) Math.round(20 * (1 + ((double) round / 10))),
                 (int) Math.round(5 * (1 + ((double) round / 10))),
-                2);
+                5);
         if (difficulty.equals("상")) {
             resource.put("HP", (int) Math.round(120 * (1 + ((double) round / 10)))); // HP를 높임
             resource.put("attackPower", (int) Math.round(25 * (1 + ((double) round / 10)))); // 공격력을 높임

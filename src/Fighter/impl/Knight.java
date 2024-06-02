@@ -14,7 +14,7 @@ public class Knight extends Fighter {
     public Knight(String difficulty, int round) {
         super("Knight",
                 (int) Math.round(200 * (1 + ((double) round / 10))),
-                (int) Math.round(15 * (1 + ((double) round / 10))),
+                (int) Math.round(10 * (1 + ((double) round / 10))),
                 (int) Math.round(15 * (1 + ((double) round / 10))),
                 2);
         if (difficulty.equals("상")) {

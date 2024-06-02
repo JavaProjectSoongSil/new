@@ -81,7 +81,7 @@ public abstract class Fighter implements FighterInter {
                         "HP        : %s\n" +
                         "공격력    : %s\n" +
                         "방어력    : %s\n" +
-                        "손패      : %s\n" +
+                        "카드 덱 수      : %s\n" +
                         "===========================",
                 name,
                 resource.get("HP"),
@@ -141,6 +141,20 @@ public abstract class Fighter implements FighterInter {
             System.out.println("보상으로 받은 카드 타입: " + key);
             System.out.println("능력치: " + value);
             System.out.println("=================================");
+        }
+    }
+
+    public void applySpecialPower(Fighter target) {
+        int specialPower = resource.get("specialPower");
+        if (specialPower == 1) {
+            // 특수 능력을 적용합니다.
+            int attack = (int) Math.round(40 * (1 + ((double) resource.get("level") / 10)));
+            if (attack > 0) {
+                int newValue = target.getResource().get("HP") - (attack);
+                target.getResource().put("HP", newValue);
+                target.setFighterResource(target.getResource());
+                System.out.println("--- 상대방에게" + attack + "의 고정피해를 주었습니다.");
+            }
         }
     }
 }

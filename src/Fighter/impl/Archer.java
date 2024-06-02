@@ -14,7 +14,7 @@ public class Archer extends Fighter {
     public Archer(String difficulty, int round) {
         super("Archer",
                 (int) Math.round(100 * (1 + ((double) round / 10))),
-                (int) Math.round(30 * (1 + ((double) round / 10))),
+                (int) Math.round(35 * (1 + ((double) round / 10))),
                 (int) Math.round(5 * (1 + ((double) round / 10))),
                 2);
         if (difficulty.equals("상")) {
