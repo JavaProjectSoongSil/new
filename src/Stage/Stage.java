@@ -12,67 +12,123 @@ import Fighter.impl.Mage;
 
 public class Stage implements StageInter {
     private Fighter enemy;
+    private String difficulty;
+
+    public Stage(String difficulty) {
+        this.difficulty = difficulty;
+    }
 
     @Override
     public void setEnemyAndReward(Fighter user) {
-        List<Fighter> fighters = Arrays.asList(new Knight(), new Mage(), new Archer());
+        List<Fighter> fighters = Arrays.asList(new Knight(difficulty), new Mage(difficulty), new Archer(difficulty));
         Random random = new Random();
         this.enemy = fighters.get(random.nextInt(fighters.size())); // 적 파이터를 랜덤으로 선택
-        System.out.println("적과 보상이 설정되었습니다.");
+        System.out.println("적이 설정되었습니다. \n ");
+        enemy.showDescript();
     }
 
     @Override
     public boolean battleResult(Fighter user) {
-        Card[] userCards = user.chooseCards(false);
-        Card[] enemyCards = enemy.chooseCards(true);
+        while (user.getResource().get("HP") > 0 && enemy.getResource().get("HP") > 0) {
+            Card[] userCards = user.chooseCards(false);
+            Card[] enemyCards = enemy.chooseCards(true);
 
-        for (Card card : userCards) {
-            applyCardEffect(card, user, enemy);
-        }
-        for (Card card : enemyCards) {
-            applyCardEffect(card, enemy, user);
+            for (Card card : userCards) {
+                System.out.println("\n===사용자 카드를 발동===");
+                applyCardEffect(card, user, enemy);
+            }
+            for (Card card : enemyCards) {
+                System.out.println("\n===적이 카드를 발동===");
+                applyCardEffect(card, enemy, user);
+            }
+            int userHP = Math.max(user.getResource().get("HP"), 0);
+            int enemyHP = Math.max(enemy.getResource().get("HP"), 0);
+            System.out.println("\n사용자 HP : "+ userHP + " 적 HP : "+ enemyHP +"\n");
         }
 
-        return user.getResource().get("HP") <= 0 || enemy.getResource().get("HP") <= 0;
+        // 사용자가 승리하면 true를 반환하고, 패배하면 false를 반환
+        if (enemy.getResource().get("HP") <= 0) {
+            return true; // 사용자 승리
+        } else {
+            return false; // 사용자 패배
+        }
     }
-
     private void applyCardEffect(Card card, Fighter caster, Fighter target) {
         Map<String, List<Integer>> effects = card.getCardInform();
+        Map<String, Integer> casterResource = caster.getResource();
+        Map<String, Integer> targetResource = target.getResource();
+
         for (Map.Entry<String, List<Integer>> entry : effects.entrySet()) {
             String key = entry.getKey();
             int value = entry.getValue().get(0);
             int targetType = entry.getValue().get(1);
+            int newValue;
 
             if (targetType == 0) {
-                // caster에게 효과 적용
-                int newValue = caster.getResource().getOrDefault(key, 0) + value;
-                caster.getResource().put(key, newValue);
+                switch(key) {
+                    case "defense":
+                        newValue = casterResource.get("defensePower") + value;
+                        casterResource.put("defensePower", newValue);
+                        caster.setFighterResource(casterResource);
+                        System.out.println("--- " + value + "의 방어력을 영구적으로 얻었습니다.");
+                        caster.getDeckSet().remove(card); // 카드를 caster의 cardSet에서 제거
+                        break;
+                    case "heal":
+                        newValue = casterResource.get("HP") + value;
+                        casterResource.put("HP", newValue);
+                        caster.setFighterResource(casterResource);
+                        System.out.println("--- " + value + "의 체력을 회복했습니다.");
+                        break;
+                }
+
             } else {
-                // target에게 효과 적용
-                int newValue = target.getResource().getOrDefault(key, 0) - value;
-                target.getResource().put(key, newValue);
+                switch(key) {
+                    case "attack":
+                        // target에게 효과 적용
+                        int attack = casterResource.get("attackPower") + value - targetResource.get("defensePower");
+                        if (attack > 0) {
+                            newValue = targetResource.get("HP") - ((casterResource.get("attackPower") + value));
+                            targetResource.put("HP", newValue);
+                            target.setFighterResource(targetResource);
+                            System.out.println("--- 상대방에게" + (casterResource.get("attackPower") + value+ "의 피해를 주었습니다."));
+                        } else {
+                            System.out.println("--- 상대방에게 피해를 주지 못했습니다.");
+                        }
+                        break;
+                }
             }
         }
     }
 
     @Override
     public void endStage(Fighter user) {
-        System.out.println("스테이지가 종료되었습니다. 보상을 받습니다.");
+        System.out.println("스테이지가 종료되었습니다. 보상을 받습니다.\n");
         Card rewardCard = getRandomCard();
         user.getreward(rewardCard);
-        System.out.println("보상으로 받은 카드: " + rewardCard.getCardInform());
+
+        Map<String, List<Integer>> cardInfo = rewardCard.getCardInform();
+        for (Map.Entry<String, List<Integer>> entry : cardInfo.entrySet()) {
+            String key = entry.getKey();
+            int value = entry.getValue().get(0);
+            System.out.println("=================================");
+            System.out.println("보상으로 받은 카드 타입: " + key);
+            System.out.println("능력치: " + value);
+            System.out.println("=================================");
+        }
     }
 
     private Card getRandomCard() {
-        List<Card> cardTypes = Arrays.asList(
-                new AttackCard(),
-                new DefenseCard(),
-                new HealCard(),
-                new AttackCard(20, 1),
-                new DefenseCard(8, 0),
-                new HealCard(15, 0)
-        );
         Random random = new Random();
+        int attackValue = random.nextInt(36) + 5; // 5 ~ 40
+        int defenseValue = random.nextInt(5) + 1; // 1 ~ 5
+        int healValue = random.nextInt(36) + 5; // 5 ~ 40
+
+        List<Card> cardTypes = Arrays.asList(
+                new AttackCard(attackValue, 1),
+                new DefenseCard(defenseValue, 0),
+                new HealCard(healValue, 0)
+        );
+
         return cardTypes.get(random.nextInt(cardTypes.size()));
     }
 }
