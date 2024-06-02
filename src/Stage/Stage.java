@@ -103,21 +103,6 @@ public class Stage implements StageInter {
     @Override
     public void endStage(Fighter user) {
         System.out.println("스테이지가 종료되었습니다. 보상을 받습니다.\n");
-        Card rewardCard = getRandomCard();
-        user.getreward(rewardCard);
-
-        Map<String, List<Integer>> cardInfo = rewardCard.getCardInform();
-        for (Map.Entry<String, List<Integer>> entry : cardInfo.entrySet()) {
-            String key = entry.getKey();
-            int value = entry.getValue().get(0);
-            System.out.println("=================================");
-            System.out.println("보상으로 받은 카드 타입: " + key);
-            System.out.println("능력치: " + value);
-            System.out.println("=================================");
-        }
-    }
-
-    private Card getRandomCard() {
         Random random = new Random();
         int attackValue = random.nextInt(36) + 5; // 5 ~ 40
         int defenseValue = random.nextInt(5) + 1; // 1 ~ 5
@@ -129,6 +114,9 @@ public class Stage implements StageInter {
                 new HealCard(healValue, 0)
         );
 
-        return cardTypes.get(random.nextInt(cardTypes.size()));
+        Card rewardCard = cardTypes.get(random.nextInt(cardTypes.size()));
+
+        user.getreward(rewardCard);
     }
+
 }

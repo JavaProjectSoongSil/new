@@ -3,6 +3,10 @@ package Fighter;
 import java.util.*;
 
 import Card.Card;
+import Card.impl.AttackCard;
+import Card.impl.DefenseCard;
+import Card.impl.HealCard;
+
 public abstract class Fighter implements FighterInter {
     protected String name;
     protected Map<String, Integer> resource = new HashMap<>(); // "HP", "attackPower", "defensePower", "hand"
@@ -101,6 +105,18 @@ public abstract class Fighter implements FighterInter {
 
     @Override
     public void getreward(Card reward) {
+        // 카드를 추가합니다.
         cardSet.add(reward);
+
+        // 카드 정보를 출력합니다.
+        Map<String, List<Integer>> cardInfo = reward.getCardInform();
+        for (Map.Entry<String, List<Integer>> entry : cardInfo.entrySet()) {
+            String key = entry.getKey();
+            int value = entry.getValue().get(0);
+            System.out.println("=================================");
+            System.out.println("보상으로 받은 카드 타입: " + key);
+            System.out.println("능력치: " + value);
+            System.out.println("=================================");
+        }
     }
 }
