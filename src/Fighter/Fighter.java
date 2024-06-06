@@ -79,18 +79,18 @@ public abstract class Fighter implements FighterInter {
     public void showDescript() {
         String description = String.format(
                 "===========================\n" +
-                        "파이터 직업: %s\n" +
+                        "파이터 직업 : %-10s\n" +
                         "===========================\n" +
-                        "HP        : %s\n" +
-                        "공격력    : %s\n" +
-                        "방어력    : %s\n" +
-                        "카드 덱 수      : %s\n" +
+                        "%-10s : %-5s\n" +
+                        "%-10s : %-5s\n" +
+                        "%-10s : %-5s\n" +
+                        "%-10s : %-5s\n" +
                         "===========================",
                 job,
-                resource.get("HP"),
-                resource.get("attackPower"),
-                resource.get("defensePower"),
-                resource.get("hand")
+                "HP", resource.get("HP"),
+                "공격력", resource.get("attackPower"),
+                "방어력", resource.get("defensePower"),
+                "카드 덱 수", resource.get("hand")
         );
         System.out.println(description);
     }
