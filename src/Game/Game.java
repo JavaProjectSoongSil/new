@@ -21,6 +21,7 @@ public class Game implements GameInter {
     private String difficulty;
 
     public Game(String difficulty) {
+
         this.score = 0; // 초기 점수 설정
         this.round = 1; // 초기 라운드 설정
         this.difficulty = difficulty;
@@ -29,7 +30,7 @@ public class Game implements GameInter {
     @Override
     public void introduceFighter() {
         // 사용할 수 있는 모든 파이터의 정보를 출력
-        Fighter[] fighters = {new Knight("중", 0), new Mage("중", 0), new Archer("중", 0)};
+        Fighter[] fighters = {new Knight(null,"중", 0), new Mage(null, "중", 0), new Archer(null,"중", 0)};
         System.out.println("사용할 수 있는 파이터:");
         for (Fighter fighter : fighters) {
             fighter.showDescript();
@@ -37,26 +38,26 @@ public class Game implements GameInter {
     }
 
     @Override
-    public void chooseFighter(String fighterName) {
+    public void chooseFighter(String fighterClass, String name) {
         Scanner scanner = new Scanner(System.in);
         boolean validInput = false;
         do {
-            switch (fighterName.toLowerCase()) {
+            switch (fighterClass.toLowerCase()) {
                 case "knight":
-                    player = new Knight("중",0);
+                    player = new Knight(name,"중",0);
                     validInput = true;
                     break;
                 case "mage":
-                    player = new Mage("중", 0);
+                    player = new Mage(name,"중", 0);
                     validInput = true;
                     break;
                 case "archer":
-                    player = new Archer("중", 0);
+                    player = new Archer(name,"중", 0);
                     validInput = true;
                     break;
                 default:
                     System.out.println("다시 캐릭터를 입력해주세요.");
-                    fighterName = scanner.next();
+                    fighterClass = scanner.next();
             }
         } while (!validInput);
     }
@@ -116,4 +117,5 @@ public class Game implements GameInter {
     public void endGame() {
         System.out.println("게임이 종료되었습니다.\n최종 점수: " + score);
     }
+
 }

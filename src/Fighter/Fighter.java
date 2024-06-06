@@ -9,11 +9,13 @@ import Card.impl.HealCard;
 
 public abstract class Fighter implements FighterInter {
     protected String name;
+    protected String job;
     protected Map<String, Integer> resource = new HashMap<>(); // "HP", "attackPower", "defensePower", "hand"
     protected Set<Card> cardSet = new HashSet<>();
 
-    public Fighter(String name, int HP, int attackPower, int defensePower, int hand) {
+    public Fighter(String name, String job, int HP, int attackPower, int defensePower, int hand) {
         this.name = name;
+        this.job = job;
         resource.put("HP", HP);
         resource.put("attackPower", attackPower);
         resource.put("defensePower", defensePower);
@@ -77,14 +79,14 @@ public abstract class Fighter implements FighterInter {
     public void showDescript() {
         String description = String.format(
                 "===========================\n" +
-                        "파이터 이름: %s\n" +
+                        "파이터 직업: %s\n" +
                         "===========================\n" +
                         "HP        : %s\n" +
                         "공격력    : %s\n" +
                         "방어력    : %s\n" +
                         "카드 덱 수      : %s\n" +
                         "===========================",
-                name,
+                job,
                 resource.get("HP"),
                 resource.get("attackPower"),
                 resource.get("defensePower"),
