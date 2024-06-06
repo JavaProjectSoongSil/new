@@ -9,8 +9,9 @@ import Card.impl.DefenseCard;
 import Card.impl.HealCard;
 import Fighter.Fighter;
 public class Mage extends Fighter {
-    public Mage(String difficulty, int round) {
-        super("Mage",
+    public Mage(String name, String difficulty, int round) {
+        super(name,
+                "Mage",
                 (int) Math.round(80 * (1 + ((double) round / 10))),
                 (int) Math.round(5 * (1 + ((double) round / 10))),
                 (int) Math.round(5 * (1 + ((double) round / 10))),

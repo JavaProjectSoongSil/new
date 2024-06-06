@@ -22,7 +22,7 @@ public class Stage implements StageInter {
 
     @Override
     public void setEnemyAndReward(Fighter user) {
-        List<Fighter> fighters = Arrays.asList(new Knight(difficulty, round), new Mage(difficulty, round), new Archer(difficulty, round));
+        List<Fighter> fighters = Arrays.asList(new Knight("computer", difficulty, round), new Mage("computer", difficulty, round), new Archer("computer", difficulty, round));
         Random random = new Random();
         this.enemy = fighters.get(random.nextInt(fighters.size())); // 적 파이터를 랜덤으로 선택
         System.out.println("적이 설정되었습니다. \n ");

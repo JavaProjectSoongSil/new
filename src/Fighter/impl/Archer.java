@@ -11,8 +11,9 @@ import Fighter.Fighter;
 
 
 public class Archer extends Fighter {
-    public Archer(String difficulty, int round) {
-        super("Archer",
+    public Archer(String name, String difficulty, int round) {
+        super(name,
+                "Archer",
                 (int) Math.round(100 * (1 + ((double) round / 10))),
                 (int) Math.round(35 * (1 + ((double) round / 10))),
                 (int) Math.round(5 * (1 + ((double) round / 10))),
