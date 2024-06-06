@@ -32,4 +32,9 @@ public class Knight extends Fighter {
         cardSet.add(new DefenseCard());
         cardSet.add(new HealCard());
     }
+
+    @Override
+    public void gainSpecialPower() {
+
+    }
 }

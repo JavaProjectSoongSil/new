@@ -39,17 +39,7 @@ public abstract class Fighter implements FighterInter {
             int choice = 0;
             boolean validInput = false;
             do {
-                System.out.println("==================================");
-                int limit = Math.min(handLimit, cardList.size());
-                for (int i = 0; i < limit; i++) {
-                    Card card = cardList.get(i);
-                    System.out.print((i + 1) + ": ");
-                    for (Map.Entry<String, List<Integer>> entry : card.getCardInform().entrySet()) {
-                        System.out.println("타입: " + entry.getKey() + ", 능력치: " + entry.getValue().get(0));
-                    }
-                    System.out.println("설명: " + card.getCardDescription());
-                }
-                System.out.println("==================================");
+                showInventory();
 
                 System.out.print("카드를 선택하세요 (1-" + handLimit + "): ");
                 choice = scanner.nextInt();
@@ -102,10 +92,20 @@ public abstract class Fighter implements FighterInter {
 
     @Override
     public void showInventory() {
-        System.out.println("인벤토리: ");
-        for (Card card : cardSet) {
-            System.out.println(card.getCardInform());
+        List<Card> cardList = new ArrayList<>(cardSet);
+        int handLimit = resource.get("hand");
+
+        System.out.println("==================================");
+        int limit = Math.min(handLimit, cardList.size());
+        for (int i = 0; i < limit; i++) {
+            Card card = cardList.get(i);
+            System.out.print((i + 1) + ": ");
+            for (Map.Entry<String, List<Integer>> entry : card.getCardInform().entrySet()) {
+                System.out.println("타입: " + entry.getKey() + ", 능력치: " + entry.getValue().get(0));
+            }
+            System.out.println("설명: " + card.getCardDescription());
         }
+        System.out.println("==================================");
     }
 
     @Override
@@ -146,23 +146,5 @@ public abstract class Fighter implements FighterInter {
             System.out.println("=================================");
         }
     }
-
-    public void gainSpecialPower() {
-        // specialPower 키가 없는 경우, 메서드를 종료
-        if (!resource.containsKey("specialPower")) {
-            return;
-        }
-
-        int currentSpecialPower = resource.get("specialPower");
-        currentSpecialPower += 20; // 한 턴마다 20의 specialPower를 얻음
-        resource.put("specialPower", currentSpecialPower);
-
-        if (currentSpecialPower > 100) { // specialPower가 100을 넘어가면
-            int currentAttackPower = resource.get("attackPower");
-            currentAttackPower += 3; // 공격력이 5씩 늘어남
-            resource.put("attackPower", currentAttackPower);
-            resource.put("specialPower", currentSpecialPower - 100); // specialPower를 100만큼 감소
-            System.out.println("--- 특수능력 발동! 공격력이 3 증가합니다.");
-        }
-    }
+    public abstract void gainSpecialPower();
 }

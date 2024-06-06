@@ -32,4 +32,9 @@ public class Archer extends Fighter {
         cardSet.add(new DefenseCard());
         cardSet.add(new HealCard());
     }
+
+    @Override
+    public void gainSpecialPower() {
+
+    }
 }
