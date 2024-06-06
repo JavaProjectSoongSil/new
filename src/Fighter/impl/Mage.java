@@ -32,4 +32,25 @@ public class Mage extends Fighter {
 
         resource.put("specialPower", 20);
     }
+
+    @Override
+    public void gainSpecialPower() {
+        // specialPower 키가 없는 경우, 메서드를 종료
+        // specialPower는 Mage 클래스에서만 존재함.
+        if (!resource.containsKey("specialPower")) {
+            return;
+        }
+
+        int currentSpecialPower = resource.get("specialPower");
+        currentSpecialPower += 20; // 한 턴마다 20의 specialPower를 얻음
+        resource.put("specialPower", currentSpecialPower);
+
+        if (currentSpecialPower > 100) { // specialPower가 100을 넘어가면
+            int currentAttackPower = resource.get("attackPower");
+            currentAttackPower += 3; // 공격력이 5씩 늘어남
+            resource.put("attackPower", currentAttackPower);
+            resource.put("specialPower", currentSpecialPower - 100); // specialPower를 100만큼 감소
+            System.out.println("--- 특수능력 발동! 공격력이 3 증가합니다.");
+        }
+    }
 }
