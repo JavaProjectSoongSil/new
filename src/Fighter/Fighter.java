@@ -146,5 +146,7 @@ public abstract class Fighter implements FighterInter {
             System.out.println("=================================");
         }
     }
+
+    // 캐릭터 특수능력 (현재 Mage만 존재함)
     public abstract void gainSpecialPower();
 }
