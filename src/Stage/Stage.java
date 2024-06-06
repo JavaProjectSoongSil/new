@@ -31,6 +31,41 @@ public class Stage implements StageInter {
 
     @Override
     public boolean battleResult(Fighter user) {
+        Scanner scanner = new Scanner(System.in);
+        String input;
+        do {
+            System.out.println("\n카드의 정보를 확인하세요. (enemy:적 , user:사용자, start:라운드 시작)");
+
+            input = scanner.nextLine().toLowerCase();
+            switch (input) {
+                case "enemy":
+                    System.out.println("\n=== 적의 카드 정보 ===");
+                    Set<Card> enemyDeckSet = enemy.getDeckSet();
+                    for (Card card : enemyDeckSet) {
+                        for (Map.Entry<String, List<Integer>> entry : card.getCardInform().entrySet()) {
+                            System.out.println("타입: " + entry.getKey() + ", 능력치: " + entry.getValue().get(0));
+                        }
+                        System.out.println("설명: " + card.getCardDescription());
+                    }
+                    break;
+                case "user":
+                    System.out.println("\n=== 사용자의 카드 정보 ===");
+                    Set<Card> userDeckSet = enemy.getDeckSet();
+                    for (Card card : userDeckSet) {
+                        for (Map.Entry<String, List<Integer>> entry : card.getCardInform().entrySet()) {
+                            System.out.println("타입: " + entry.getKey() + ", 능력치: " + entry.getValue().get(0));
+                        }
+                        System.out.println("설명: " + card.getCardDescription());
+                    }
+                    break;
+                case "start":
+                    System.out.println("다음 단계로 이동합니다.\n");
+                    break;
+                default:
+                    System.out.println("잘못된 입력입니다. 'enemy', 'user' 또는 'start'를 입력해주세요.");
+            }
+        } while (!input.equals("start"));
+
         while (user.getResource().get("HP") > 0 && enemy.getResource().get("HP") > 0) {
             Card[] userCards = user.chooseCards(false);
             Card[] enemyCards = enemy.chooseCards(true);
