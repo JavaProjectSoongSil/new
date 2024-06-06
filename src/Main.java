@@ -29,7 +29,7 @@ public class Main {
             a.introduceFighter();
             System.out.print("캐릭터를 골라주세요");
             String fighter = scanner.next();//
-            a.chooseFighter(fighter);
+            a.chooseFighter(fighter,name);
             String stop = "";
             while (!stop.equals("그만")) {
                 System.out.print("스테이지가 생성됩니다.");
