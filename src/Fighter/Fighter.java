@@ -11,7 +11,7 @@ public abstract class Fighter implements FighterInter {
     protected String name;
     protected String job;
     protected Map<String, Integer> resource = new HashMap<>(); // "HP", "attackPower", "defensePower", "hand"
-    protected Set<Card> cardSet = new HashSet<>();
+    protected Set<Card> cardSet = new LinkedHashSet<>();
 
     public Fighter(String name, String job, int HP, int attackPower, int defensePower, int hand) {
         this.name = name;
@@ -28,7 +28,6 @@ public abstract class Fighter implements FighterInter {
     public Card[] chooseCards(Boolean isEnemy) {
         List<Card> chosenCards = new ArrayList<>();
         List<Card> cardList = new ArrayList<>(cardSet);
-        Collections.shuffle(cardList);
         int handLimit = resource.get("hand");
         if (isEnemy) {
             Random random = new Random();
@@ -42,11 +41,16 @@ public abstract class Fighter implements FighterInter {
                 showInventory();
 
                 System.out.print("카드를 선택하세요 (1-" + handLimit + "): ");
-                choice = scanner.nextInt();
-                if (choice >= 1 && choice <= handLimit) {
-                    validInput = true;
+                if (scanner.hasNextInt()) {
+                    choice = scanner.nextInt();
+                    if (choice >= 1 && choice <= handLimit) {
+                        validInput = true;
+                    } else {
+                        System.out.println("잘못된 입력입니다. 1-" + handLimit + " 사이의 숫자를 입력해주세요.\n");
+                    }
                 } else {
                     System.out.println("잘못된 입력입니다. 1-" + handLimit + " 사이의 숫자를 입력해주세요.\n");
+                    scanner.next(); // 잘못된 입력을 건너뛰고 다음 입력을 받습니다.
                 }
             } while (!validInput);
             chosenCards.add(cardList.get(choice - 1));
